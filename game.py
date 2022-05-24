@@ -78,10 +78,18 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
-            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    self.player.move(vec(-1,0))
+                if event.key == pygame.K_RIGHT:
+                    self.player.move(vec(1,0))
+                if event.key == pygame.K_UP:
+                    self.player.move(vec(0,-1))
+                if event.key == pygame.K_DOWN:
+                    self.player.move(vec(0,1))
     
     def playing_update(self):
-        pass
+        self.player.update()
 
     def playing_draw(self):
         self.screen.fill(COLOR_BLACK)
