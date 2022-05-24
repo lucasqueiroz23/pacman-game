@@ -11,6 +11,10 @@ class Game:
         self.clock = pygame.time.Clock()
         self.running = True
         self.state = 'menu'
+        self.cell_width = SCREEN_WIDHT//28
+        self.cell_height = SCREEN_HEIGHT//30
+
+        self.load()
 
     def run_game(self):
         while self.running:
@@ -38,6 +42,16 @@ class Game:
             text_position[1] = text_position[1] - text_size[1]/2
 
         screen.blit(text, text_position)
+
+    def load(self):
+        self.maze = pygame.image.load('images/maze.png')
+        self.maze = pygame.transform.scale(self.maze, (SCREEN_WIDHT, SCREEN_HEIGHT))
+
+    def draw_grid(self):
+        for x in range(SCREEN_WIDHT//self.cell_width):
+            pygame.draw.line(self.screen, COLOR_ORANGE, (x*self.cell_width, 0), (x*self.cell_width, SCREEN_HEIGHT))
+        for x in range(SCREEN_HEIGHT//self.cell_height):
+            pygame.draw.line(self.screen, COLOR_ORANGE, (0, x*self.cell_height), (SCREEN_WIDHT, x*self.cell_height))
 
     def menu_events(self):
         for event in pygame.event.get():
@@ -67,7 +81,8 @@ class Game:
         pass
 
     def playing_draw(self):
-        self.screen.fill(COLOR_ORANGE) 
+        self.screen.blit(self.maze, (0, 0))
+        self.draw_grid()
         pygame.display.update()
 
     
