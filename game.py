@@ -1,5 +1,6 @@
 import pygame, sys
 from settings import *
+from player import *
 
 
 pygame.init()
@@ -13,6 +14,7 @@ class Game:
         self.state = 'menu'
         self.cell_width = MAZE_WIDHT//28
         self.cell_height = MAZE_HEIGHT//30
+        self.player = Player(self, PLAYER_START_POSITION)
 
         self.load()
 
@@ -87,6 +89,7 @@ class Game:
         self.draw_grid()
         self.draw_text('HIGH SCORE: 0', self.screen, (29,0), 18, COLOR_WHITE, MENU_FONT)
         self.draw_text('SCORE: 0', self.screen, (SCREEN_WIDHT//2 + 29,0), 18, COLOR_WHITE, MENU_FONT)
+        self.player.draw()
         pygame.display.update()
 
     
