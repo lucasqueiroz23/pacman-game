@@ -11,8 +11,8 @@ class Game:
         self.clock = pygame.time.Clock()
         self.running = True
         self.state = 'menu'
-        self.cell_width = SCREEN_WIDHT//28
-        self.cell_height = SCREEN_HEIGHT//30
+        self.cell_width = MAZE_WIDHT//28
+        self.cell_height = MAZE_HEIGHT//30
 
         self.load()
 
@@ -45,13 +45,13 @@ class Game:
 
     def load(self):
         self.maze = pygame.image.load('images/maze.png')
-        self.maze = pygame.transform.scale(self.maze, (SCREEN_WIDHT, SCREEN_HEIGHT))
+        self.maze = pygame.transform.scale(self.maze, (MAZE_WIDHT, MAZE_HEIGHT))
 
     def draw_grid(self):
         for x in range(SCREEN_WIDHT//self.cell_width):
-            pygame.draw.line(self.screen, COLOR_ORANGE, (x*self.cell_width, 0), (x*self.cell_width, SCREEN_HEIGHT))
+            pygame.draw.line(self.maze, COLOR_ORANGE, (x*self.cell_width, 0), (x*self.cell_width, SCREEN_HEIGHT))
         for x in range(SCREEN_HEIGHT//self.cell_height):
-            pygame.draw.line(self.screen, COLOR_ORANGE, (0, x*self.cell_height), (SCREEN_WIDHT, x*self.cell_height))
+            pygame.draw.line(self.maze, COLOR_ORANGE, (0, x*self.cell_height), (SCREEN_WIDHT, x*self.cell_height))
 
     def menu_events(self):
         for event in pygame.event.get():
@@ -67,10 +67,11 @@ class Game:
         self.screen.fill(COLOR_BLACK)
         self.draw_text('PUSH SPACE BAR', self.screen, [SCREEN_WIDHT//2, SCREEN_HEIGHT//2], MENU_TEXT_SIZE+5, COLOR_ORANGE, MENU_FONT, True)
         self.draw_text('ONE PLAYER ONLY', self.screen, [SCREEN_WIDHT//2, SCREEN_HEIGHT//2 + 50], MENU_TEXT_SIZE, COLOR_BLUE, MENU_FONT,True)
-        self.draw_text('HIGH SCORE', self.screen, [4,0], MENU_TEXT_SIZE, COLOR_WHITE, MENU_FONT)
+        self.draw_text('HIGH SCORE: 0', self.screen, (29,0), 18, COLOR_WHITE, MENU_FONT)
         pygame.display.update()
 
 ######### jogo #########
+
     def playing_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -81,8 +82,11 @@ class Game:
         pass
 
     def playing_draw(self):
-        self.screen.blit(self.maze, (0, 0))
+        self.screen.fill(COLOR_BLACK)
+        self.screen.blit(self.maze, (TOP_BOTTOM_BUFFER//2,TOP_BOTTOM_BUFFER//2))
         self.draw_grid()
+        self.draw_text('HIGH SCORE: 0', self.screen, (29,0), 18, COLOR_WHITE, MENU_FONT)
+        self.draw_text('SCORE: 0', self.screen, (SCREEN_WIDHT//2 + 29,0), 18, COLOR_WHITE, MENU_FONT)
         pygame.display.update()
 
     
